@@ -15,15 +15,28 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Validate the login request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array
      */
     public function rules(): array
     {
         return [
             'email' => 'required|email:dns',
             'password' => 'required|string'
+        ];
+    }
+
+    /**
+     * Returns an array of attribute names and their corresponding display names for the login form.
+     *
+     * @return array
+     */
+    public function attributes(): array
+    {
+        return [
+            'email' => 'Email',
+            'password' => 'Password'
         ];
     }
 }

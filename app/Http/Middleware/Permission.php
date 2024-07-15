@@ -9,9 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 class Permission
 {
     /**
-     * Handle an incoming request.
+     * Handles an incoming request and checks if the authenticated user has the required permissions.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * If the `$permissions` parameter contains a pipe-separated list of permissions, the middleware will check if the
+     * user has at least one of the permissions. Otherwise, it will check if the user has the single specified permission.
+     *
+     * If the user has the required permission(s), the middleware will allow the request to proceed. Otherwise, it will
+     * return a 401 Unauthorized response.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param string $permissions
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next, string $permissions): Response
     {

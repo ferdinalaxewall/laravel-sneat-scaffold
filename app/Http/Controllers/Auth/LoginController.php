@@ -2,18 +2,47 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 
 class LoginController extends Controller
 {
-    public function index()
+    /**
+     * Constructs the LoginController instance.
+     *
+     * @param \Illuminate\Auth\AuthManager $auth The authentication manager instance.
+     */
+    public function __construct(
+        protected AuthManager $auth
+    ) {}
+
+    /**
+     * Renders the login view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(): \Illuminate\View\View
     {
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request)
+    /**
+     * Handles the login process for a user.
+     *
+     * This method first validates the login request using the `LoginRequest` form request.
+     * It then checks if the user with the provided email exists in the database.
+     * If the user is found, it attempts to authenticate the user using the provided credentials.
+     * If the authentication is successful, it regenerates the session and redirects the user to the intended dashboard.
+     * If the authentication fails, it redirects the user back to the login page with an error message.
+     * If any exception occurs during the process, it redirects the user back to the login page with a generic error message.
+     *
+     * @param \App\Http\Requests\Auth\LoginRequest $request The login request.
+     * @return \Illuminate\Http\RedirectResponse The redirect response.
+     */
+    public function store(LoginRequest $request): \Illuminate\Http\RedirectResponse
     {
         $requestDTO = $request->validated();
         
@@ -21,7 +50,7 @@ class LoginController extends Controller
             $user = User::where('email', $requestDTO['email'])->limit(1)->first();
             if (is_null($user)) return redirect(route('auth.login'))->with('toastError', 'Email Tidak Terdaftar!')->withInput();
 
-            if (Auth::attempt($requestDTO)) {
+            if ($this->auth->attempt($requestDTO)) {
                 request()->session()->regenerate();
                 return redirect()->intended(route('example.dashboard'))->with('toastSuccess', __('auth.success_login'));
             }

@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class LogoutController extends Controller
 {
-    public function destroySession()
+    /**
+     * Destroy the user's session and log them out.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroySession(): \Illuminate\Http\RedirectResponse
     {
         auth()->logout();
         request()->session()->invalidate();

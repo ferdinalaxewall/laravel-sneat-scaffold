@@ -9,9 +9,17 @@ use Symfony\Component\HttpFoundation\Response;
 class Role
 {
     /**
-     * Handle an incoming request.
+     * Middleware that checks if the authenticated user has the specified role(s).
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * If the $role parameter contains a pipe-separated list of roles, the user must have at least one of the specified roles.
+     * If the $role parameter contains a single role, the user must have that specific role.
+     *
+     * If the user is not authenticated or does not have the required role(s), the middleware will abort with a 401 Unauthorized response.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param string $role
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
