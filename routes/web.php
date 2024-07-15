@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('auth.login');
+});
+
+Route::group([
+    'prefix' => 'auth',
+    'as' => 'auth.'
+], function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('store-login');
+    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 });
 
 Route::group([
