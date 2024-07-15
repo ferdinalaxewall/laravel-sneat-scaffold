@@ -25,7 +25,7 @@ Route::group([
 ], function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('store-login');
-    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LogoutController::class, 'destroySession'])->name('logout');
 });
 
 Route::group([
