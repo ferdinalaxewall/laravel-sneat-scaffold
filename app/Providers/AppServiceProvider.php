@@ -23,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
     {
         if (!App::runningInConsole()) {
             Blade::directive('idr', fn ($expression) => "Rp <?php echo number_format({$expression}, 0, ',', '.'); ?>");
+            Blade::if('has', function ($expression) {
+                if (is_array($expression)) {
+                    return auth()->user()->permissions()->whereIn('name', $expression)->count() > 0;
+                } elseif (is_bool($expression)) {
+                    return $expression;
+                } else {
+                    return auth()->user()->can($expression);
+                }
+            });
 
             // Default Datetime Config
             config(['app.locale' => 'id']);
