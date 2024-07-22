@@ -3,9 +3,12 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\Utilities\HandleJsonValidation;
 
 class LoginRequest extends FormRequest
 {
+    use HandleJsonValidation;
+    
     /**
      * Determine if the user is authorized to make this request.
      */
