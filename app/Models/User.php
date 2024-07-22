@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    const FOLDER_NAME = 'avatar';
+
+    public function scopeActive($query)
+    {
+        return $query->whereNotNull('email_verified_at');
+    }
+
+    public function getProfileImageURL()
+    {
+        return asset('storage/' . self::FOLDER_NAME . '/' . $this->image);
+    }
 }
