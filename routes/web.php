@@ -30,7 +30,8 @@ Route::group([
 
 Route::group([
     'prefix' => 'example',
-    'as' => 'example.'
+    'as' => 'example.',
+    'middleware' => ['auth']
 ], function () {
     Route::get('/dashboard', fn () => view('admin.pages.examples.dashboard'))->name('dashboard');
     Route::get('/profile', fn () => view('admin.pages.examples.profile'))->name('profile');
