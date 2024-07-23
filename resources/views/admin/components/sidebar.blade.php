@@ -3,11 +3,12 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="#" class="app-brand-link">
-            <img src="{{ asset('assets/landing-page/images/J-Tripロゴ.svg') }}" width="85" alt="">
+            {{-- <img src="{{ asset('assets/landing-page/images/J-Tripロゴ.svg') }}" width="85" alt=""> --}}
+            {{ config('app.name') }}
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
         </a>
     </div>
 
@@ -34,21 +35,21 @@
         </li>
 
         <!-- Users -->
-        <li class="menu-item @if(Route::is('admin.users.*')) active open @endif">
+        <li class="menu-item @if(Route::is('example.users.*')) active open @endif">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div data-i18n="Users">Users</div>
             </a>
 
             <ul class="menu-sub">
-                <li class="menu-item @if(Route::is(('admin.users.administrator.*'))) active @endif">
-                    <a href="#" class="menu-link">
+                <li class="menu-item @if(Route::is(('example.users.administrator.*'))) active @endif">
+                    <a href="{{ route("example.users.administrator.index") }}" class="menu-link">
                         <div data-i18n="Administrator">Administrator</div>
                     </a>
                 </li>
 
-                <li class="menu-item @if(Route::is(('admin.users.staff.*'))) active @endif">
-                    <a href="#" class="menu-link">
+                <li class="menu-item @if(Route::is(('example.users.staff.*'))) active @endif">
+                    <a href="{{ route('example.users.administrator.index') }}" class="menu-link">
                         <div data-i18n="Staff">Staff</div>
                     </a>
                 </li>

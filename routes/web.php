@@ -35,4 +35,20 @@ Route::group([
 ], function () {
     Route::get('/dashboard', fn () => view('admin.pages.examples.dashboard'))->name('dashboard');
     Route::get('/profile', fn () => view('admin.pages.examples.profile'))->name('profile');
+
+    Route::group([
+        'prefix' => 'users',
+        'as' => 'users.'
+    ], function () {
+        Route::group([
+            'prefix' => 'administrator',
+            'as' => 'administrator.',
+        ], function () {
+            Route::get('/', fn () => view('admin.pages.examples.users.administrator.index'))->name('index');
+            Route::get('/detail', fn () => view('admin.pages.examples.users.administrator.detail'))->name('detail');
+            Route::get('/create', fn () => view('admin.pages.examples.users.administrator.create'))->name('create');
+            Route::get('/edit', fn () => view('admin.pages.examples.users.administrator.edit'))->name('edit');
+            Route::delete('/delete', fn () => dd('deleted!'))->name('delete');
+        });
+    });
 });
