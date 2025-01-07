@@ -35,9 +35,9 @@
                     <td>{{ now()->translatedFormat('d F Y H:i:s') }}</td>
                     <td>
                         <div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
-                            <x:button.linked :href="route('example.users.administrator.detail')" tooltip="Detail Administrator" iconClass="bx-info-circle" variant="btn-secondary" />
-                            <x:button.linked :href="route('example.users.administrator.edit')" tooltip="Ubah Administrator" iconClass="bx-edit-alt" variant="btn-info" />
-                            <x:button.linked :href="route('example.users.administrator.delete')" tooltip="Hapus Administrator" iconClass="bx-trash-alt" variant="btn-danger delete-confirm" />
+                            <x:button.linked :href="route('example.users.administrator.show', 'id')" tooltip="Detail Administrator" iconClass="bx-info-circle" variant="btn-secondary" />
+                            <x:button.linked :href="route('example.users.administrator.edit', 'id')" tooltip="Ubah Administrator" iconClass="bx-edit-alt" variant="btn-info" />
+                            <x:button.linked :href="route('example.users.administrator.destroy', 'id')" tooltip="Hapus Administrator" iconClass="bx-trash-alt" variant="btn-danger delete-confirm" />
                         </div>
                     </td>
                 </tr>
