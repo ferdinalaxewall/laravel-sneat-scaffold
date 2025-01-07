@@ -47,12 +47,6 @@
                         <div data-i18n="Administrator">Administrator</div>
                     </a>
                 </li>
-
-                <li class="menu-item @if(Route::is(('example.users.staff.*'))) active @endif">
-                    <a href="{{ route('example.users.administrator.index') }}" class="menu-link">
-                        <div data-i18n="Staff">Staff</div>
-                    </a>
-                </li>
             </ul>
         </li>
     </ul>

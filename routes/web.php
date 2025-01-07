@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Users\AdministratorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
@@ -44,11 +45,13 @@ Route::group([
             'prefix' => 'administrator',
             'as' => 'administrator.',
         ], function () {
-            Route::get('/', fn () => view('admin.pages.examples.users.administrator.index'))->name('index');
-            Route::get('/detail', fn () => view('admin.pages.examples.users.administrator.detail'))->name('detail');
-            Route::get('/create', fn () => view('admin.pages.examples.users.administrator.create'))->name('create');
-            Route::get('/edit', fn () => view('admin.pages.examples.users.administrator.edit'))->name('edit');
-            Route::delete('/delete', fn () => dd('deleted!'))->name('delete');
+            Route::get('/', [AdministratorController::class, 'index'])->name('index');
+            Route::get('/create', [AdministratorController::class, 'create'])->name('create');
+            Route::post('/store', [AdministratorController::class, 'store'])->name('store');
+            Route::get('/{id}', [AdministratorController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [AdministratorController::class, 'edit'])->name('edit');
+            Route::put('/{id}/update', [AdministratorController::class, 'update'])->name('update');
+            Route::delete('/{id}/delete', [AdministratorController::class, 'destroy'])->name('destroy');
         });
     });
 });
