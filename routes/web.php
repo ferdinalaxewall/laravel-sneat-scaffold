@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::group([
     'prefix' => 'auth',
-    'as' => 'auth.'
+    'as' => 'auth.',
 ], function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('store-login');
@@ -31,14 +31,14 @@ Route::group([
 Route::group([
     'prefix' => 'example',
     'as' => 'example.',
-    'middleware' => ['auth']
+    'middleware' => ['auth'],
 ], function () {
     Route::get('/dashboard', fn () => view('admin.pages.examples.dashboard'))->name('dashboard');
     Route::get('/profile', fn () => view('admin.pages.examples.profile'))->name('profile');
 
     Route::group([
         'prefix' => 'users',
-        'as' => 'users.'
+        'as' => 'users.',
     ], function () {
         Route::group([
             'prefix' => 'administrator',

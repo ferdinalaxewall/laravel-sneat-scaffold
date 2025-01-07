@@ -4,12 +4,11 @@ namespace App\Traits\Models;
 
 use Illuminate\Support\Str;
 
-
 trait WithPrimaryUuid
 {
     /**
      * Override Boot Method from Model Class.
-     * 
+     *
      * @return void
      */
     protected static function boot()

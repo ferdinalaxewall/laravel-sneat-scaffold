@@ -18,5 +18,5 @@ return [
     'invalid_old_password' => 'Invalid Old Password',
 
     'invalid_balance_wd' => 'Your balance is insufficient, Remaining Balance: :balance',
-    'invalid_max_wd' => 'The balance withdrawal failed, because there was a balance withdrawal transaction that had not been completed'
+    'invalid_max_wd' => 'The balance withdrawal failed, because there was a balance withdrawal transaction that had not been completed',
 ];

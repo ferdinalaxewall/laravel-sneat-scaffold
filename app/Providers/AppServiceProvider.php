@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (!App::runningInConsole()) {
+        if (! App::runningInConsole()) {
             Blade::directive('idr', fn ($expression) => "Rp <?php echo number_format({$expression}, 0, ',', '.'); ?>");
             Blade::if('has', function ($expression) {
                 if (is_array($expression)) {

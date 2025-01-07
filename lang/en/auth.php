@@ -16,7 +16,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    
+
     'success_login' => 'Successfully Log In',
     'failed_login' => 'Failed to Log In',
     'wrong_password' => 'Incorrect password, please check your password again!',
@@ -28,7 +28,7 @@ return [
     'wrong_code' => 'Oops, invalid verification code!',
     'error_activate' => 'An error occurred while activating your account',
     'not_active' => 'Please Verify Your Account',
-    
+
     'verification_code' => 'Successfully sent verification code to related email',
     'error_verification_code' => 'Failed to send verification code',
 
