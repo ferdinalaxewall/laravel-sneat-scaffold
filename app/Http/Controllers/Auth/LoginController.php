@@ -57,7 +57,7 @@ class LoginController extends Controller
             }
 
             return redirect()->route('auth.login')->with('toastError', __('auth.wrong_password'))->withInput();
-        } catch (\Throwable $th) {
+        } catch (\Throwable) {
             return redirect()->route('auth.login')->with('toastError', __('auth.failed_login'))->withInput();
         }
     }

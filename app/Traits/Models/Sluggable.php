@@ -18,7 +18,7 @@ trait Sluggable
     private static function generateSlug(Model $model)
     {
         $model->slug = Str::slug($model->{$model->slugReferenceColumn});
-        $getLatestSlugBaseQuery = static::select(['slug'])->where(function ($query) use ($model) {
+        $getLatestSlugBaseQuery = static::select(['slug'])->where(function ($query) use ($model): void {
             $query->where('slug', $model->slug)->orWhere('slug', 'LIKE', "$model->slug-%");
         });
 

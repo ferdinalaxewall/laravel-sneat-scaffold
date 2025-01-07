@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('auth.login');
-});
+Route::get('/', fn() => redirect()->route('auth.login'));
 
 Route::group([
     'prefix' => 'auth',
     'as' => 'auth.',
-], function () {
+], function (): void {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('store-login');
     Route::get('/logout', [LogoutController::class, 'destroySession'])->name('logout');
@@ -33,18 +31,18 @@ Route::group([
     'prefix' => 'example',
     'as' => 'example.',
     'middleware' => ['auth'],
-], function () {
+], function (): void {
     Route::get('/dashboard', fn () => view('admin.pages.examples.dashboard'))->name('dashboard');
     Route::get('/profile', fn () => view('admin.pages.examples.profile'))->name('profile');
 
     Route::group([
         'prefix' => 'users',
         'as' => 'users.',
-    ], function () {
+    ], function (): void {
         Route::group([
             'prefix' => 'administrator',
             'as' => 'administrator.',
-        ], function () {
+        ], function (): void {
             Route::get('/', [AdministratorController::class, 'index'])->name('index');
             Route::get('/create', [AdministratorController::class, 'create'])->name('create');
             Route::post('/store', [AdministratorController::class, 'store'])->name('store');

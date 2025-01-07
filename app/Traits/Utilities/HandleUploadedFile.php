@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 trait HandleUploadedFile
 {
-    public function uploadFile(UploadedFile $file, string $folderPrefix)
+    public function uploadFile(UploadedFile $file, string $folderPrefix): string
     {
         $file_name = $file->getClientOriginalName();
         $file_ext = $file->getClientOriginalExtension();

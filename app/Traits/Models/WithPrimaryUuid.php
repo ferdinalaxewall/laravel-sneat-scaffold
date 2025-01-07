@@ -15,7 +15,7 @@ trait WithPrimaryUuid
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        static::creating(function ($model): void {
             try {
                 $model->id = Str::uuid();
             } catch (\Throwable $e) {
@@ -24,12 +24,12 @@ trait WithPrimaryUuid
         });
     }
 
-    public function getKeyType()
+    public function getKeyType(): string
     {
         return 'string';
     }
 
-    public function getIncerementing()
+    public function getIncerementing(): bool
     {
         return false;
     }
