@@ -1,60 +1,41 @@
 <!-- Menu -->
-
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo">
-        <a href="#" class="app-brand-link">
-            {{-- <img src="{{ asset('assets/landing-page/images/J-Tripロゴ.svg') }}" width="85" alt=""> --}}
-            {{ config('app.name') }}
-        </a>
-
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-            <i class="bx bx-chevron-left bx-sm align-middle"></i>
-        </a>
-    </div>
+    <x:sidebar.app-logo />
 
     <div class="menu-inner-shadow"></div>
 
-    <ul class="menu-inner py-1">
+    <x:sidebar.wrapper>
+        <x:sidebar.muted name="Dashboard" />
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Dashboard</span>
-        </li>
+        <x:sidebar.menu
+            :activeCondition="Route::is('example.dashboard')"
+            name="Dashboard"
+            href="{{ route('example.dashboard') }}"
+            iconClass="bx bx-grid-alt"
+        />
 
-        <li class="menu-item @if(Route::is('example.dashboard')) active @endif">
-            <a href="{{ route('example.dashboard') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-grid-alt"></i>
-                <div data-i18n="Dashboard">Dashboard</div>
-            </a>
-        </li>
+        <x:sidebar.menu
+            :activeCondition="Route::is('example.profile')"
+            name="Profil Saya"
+            href="{{ route('example.profile') }}"
+            iconClass="bx bx-user"
+        />
 
-        <li class="menu-item @if(Route::is('example.profile')) active @endif">
-            <a href="{{ route('example.profile') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Profil Saya">Profil Saya</div>
-            </a>
-        </li>
-
-        <!-- Users -->
-        <li class="menu-item @if(Route::is('example.users.*')) active open @endif">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-group"></i>
-                <div data-i18n="Users">Users</div>
-            </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item @if(Route::is(('example.users.administrator.*'))) active @endif">
-                    <a href="{{ route("example.users.administrator.index") }}" class="menu-link">
-                        <div data-i18n="Administrator">Administrator</div>
-                    </a>
-                </li>
-
-                <li class="menu-item @if(Route::is(('example.users.staff.*'))) active @endif">
-                    <a href="{{ route('example.users.administrator.index') }}" class="menu-link">
-                        <div data-i18n="Staff">Staff</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+        <x:sidebar.menu
+            :activeCondition="Route::is('example.users.*')"
+            name="Users"
+            href="javascript:void(0);"
+            iconClass="bx bx-group"
+            isToggle="true"
+        >
+            <x:sidebar.menu-sub-wrapper>
+                <x:sidebar.menu-link
+                    :activeCondition="Route::is('example.users.administrator.*')"
+                    name="Administrator"
+                    href="{{ route('example.users.administrator.index') }}"
+                />
+            </x:sidebar.menu-sub-wrapper>
+        </x:sidebar.menu>
+    </x:sidebar.wrapper>
 </aside>
 <!-- / Menu -->

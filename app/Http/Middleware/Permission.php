@@ -16,30 +16,25 @@ class Permission
      *
      * If the user has the required permission(s), the middleware will allow the request to proceed. Otherwise, it will
      * return a 401 Unauthorized response.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @param string $permissions
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next, string $permissions): Response
     {
-        if(str_contains($permission, '|')){
+        if (str_contains($permission, '|')) {
             $permissions = explode('|', $permission);
             $authorizeCheck = false;
-            
-            if(auth()->check()){
-                foreach($permissions as $permissionItem){
-                    if(!$authorizeCheck){
+
+            if (auth()->check()) {
+                foreach ($permissions as $permissionItem) {
+                    if (! $authorizeCheck) {
                         $authorizeCheck = auth()->user()->canSlug($permissionItem);
-                    }else{
+                    } else {
                         break;
                     }
                 }
             }
 
             return $authorizeCheck ? $next($request) : abort(401);
-        }else{
+        } else {
             return auth()->check() && auth()->user()->canSlug($permission) ? $next($request) : abort(401);
         }
     }

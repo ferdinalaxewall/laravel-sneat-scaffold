@@ -18,7 +18,7 @@ class DateHelper
 
         return (object) [
             'start_date' => $startDate,
-            'end_date' => $endDate
+            'end_date' => $endDate,
         ];
     }
 }

@@ -51,6 +51,6 @@ class User extends Authenticatable
 
     public function getProfileImageURL()
     {
-        return asset('storage/' . self::FOLDER_NAME . '/' . $this->image);
+        return asset('storage/'.self::FOLDER_NAME.'/'.$this->image);
     }
 }

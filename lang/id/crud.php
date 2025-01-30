@@ -18,5 +18,5 @@ return [
     'invalid_old_password' => 'Password Lama Tidak Valid!',
 
     'invalid_balance_wd' => 'Jumlah Saldo anda tidak mencukupi, Sisa Saldo: :balance',
-    'invalid_max_wd' => 'Penarikan saldo gagal, karena ada transaksi penarikan saldo yang belum selesai'
+    'invalid_max_wd' => 'Penarikan saldo gagal, karena ada transaksi penarikan saldo yang belum selesai',
 ];

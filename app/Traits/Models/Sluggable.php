@@ -18,17 +18,17 @@ trait Sluggable
     private static function generateSlug(Model $model)
     {
         $model->slug = Str::slug($model->{$model->slugReferenceColumn});
-        $getLatestSlugBaseQuery = static::select(['slug'])->where(function ($query) use ($model) {
+        $getLatestSlugBaseQuery = static::select(['slug'])->where(function ($query) use ($model): void {
             $query->where('slug', $model->slug)->orWhere('slug', 'LIKE', "$model->slug-%");
         });
-            
-        if (!is_null($model->{$model->getKeyName()})) {
+
+        if (! is_null($model->{$model->getKeyName()})) {
             $getLatestSlugBaseQuery->where($model->getKeyName(), '!=', $model->{$model->getKeyName()});
         }
-        
+
         $latestSlug = $getLatestSlugBaseQuery->latest()->value('slug');
 
-        if ($latestSlug ) {
+        if ($latestSlug) {
             $explodedSlug = explode('-', $model->slug);
             if (is_numeric(end($explodedSlug))) {
                 $latestNumber = intval(end($explodedSlug)) + 1;

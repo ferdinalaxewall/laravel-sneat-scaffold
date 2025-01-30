@@ -15,30 +15,25 @@ class Role
      * If the $role parameter contains a single role, the user must have that specific role.
      *
      * If the user is not authenticated or does not have the required role(s), the middleware will abort with a 401 Unauthorized response.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @param string $role
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if(str_contains($role, '|')){
+        if (str_contains($role, '|')) {
             $roles = explode('|', $role);
             $authorizeCheck = false;
 
-            if(auth()->check()){
+            if (auth()->check()) {
                 foreach ($roles as $roleItem) {
-                    if(!$authorizeCheck) {
+                    if (! $authorizeCheck) {
                         $authorizeCheck = auth()->user()->hasRole($roleItem);
-                    }else{
+                    } else {
                         break;
                     }
                 }
             }
 
             return $authorizeCheck ? $next($request) : abort(401);
-        }else{
+        } else {
             return auth()->check() && auth()->user()->hasRole($role) ? $next($request) : abort(401);
         }
     }

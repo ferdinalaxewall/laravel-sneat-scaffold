@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Users\AdministratorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +16,12 @@ use App\Http\Controllers\Auth\LogoutController;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('auth.login');
-});
+Route::get('/', fn() => redirect()->route('auth.login'));
 
 Route::group([
     'prefix' => 'auth',
-    'as' => 'auth.'
-], function () {
+    'as' => 'auth.',
+], function (): void {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('store-login');
     Route::get('/logout', [LogoutController::class, 'destroySession'])->name('logout');
@@ -31,24 +30,26 @@ Route::group([
 Route::group([
     'prefix' => 'example',
     'as' => 'example.',
-    'middleware' => ['auth']
-], function () {
+    'middleware' => ['auth'],
+], function (): void {
     Route::get('/dashboard', fn () => view('admin.pages.examples.dashboard'))->name('dashboard');
     Route::get('/profile', fn () => view('admin.pages.examples.profile'))->name('profile');
 
     Route::group([
         'prefix' => 'users',
-        'as' => 'users.'
-    ], function () {
+        'as' => 'users.',
+    ], function (): void {
         Route::group([
             'prefix' => 'administrator',
             'as' => 'administrator.',
-        ], function () {
-            Route::get('/', fn () => view('admin.pages.examples.users.administrator.index'))->name('index');
-            Route::get('/detail', fn () => view('admin.pages.examples.users.administrator.detail'))->name('detail');
-            Route::get('/create', fn () => view('admin.pages.examples.users.administrator.create'))->name('create');
-            Route::get('/edit', fn () => view('admin.pages.examples.users.administrator.edit'))->name('edit');
-            Route::delete('/delete', fn () => dd('deleted!'))->name('delete');
+        ], function (): void {
+            Route::get('/', [AdministratorController::class, 'index'])->name('index');
+            Route::get('/create', [AdministratorController::class, 'create'])->name('create');
+            Route::post('/store', [AdministratorController::class, 'store'])->name('store');
+            Route::get('/{id}', [AdministratorController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [AdministratorController::class, 'edit'])->name('edit');
+            Route::put('/{id}/update', [AdministratorController::class, 'update'])->name('update');
+            Route::delete('/{id}/delete', [AdministratorController::class, 'destroy'])->name('destroy');
         });
     });
 });
